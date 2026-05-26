@@ -5,10 +5,12 @@ public class NetworkManagerSetup : MonoBehaviour
 {
     public GameObject aiPlayerPrefab;
     public GameObject ballPrefab;
+    public GameObject lobbyPanel;
 
     public void StartHost()
     {
         NetworkManager.Singleton.StartHost();
+        if (lobbyPanel != null) lobbyPanel.SetActive(false);
         if (aiPlayerPrefab != null)
         {
             var ai = Instantiate(aiPlayerPrefab);
@@ -25,11 +27,7 @@ public class NetworkManagerSetup : MonoBehaviour
 
     public void StartClient()
     {
-        if (NetworkManager.Singleton == null)
-        {
-            Debug.LogError("NetworkManager.Singleton est null !");
-            return;
-        }
         NetworkManager.Singleton.StartClient();
+        if (lobbyPanel != null) lobbyPanel.SetActive(false);
     }
 }
