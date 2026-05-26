@@ -6,11 +6,14 @@ public class NetworkManagerSetup : MonoBehaviour
     public GameObject aiPlayerPrefab;
     public GameObject ballPrefab;
     public GameObject lobbyPanel;
+    public GameObject chatPanel;
+    public GameObject puzzleStatus;
+    public GameObject timerText;
 
     public void StartHost()
     {
         NetworkManager.Singleton.StartHost();
-        if (lobbyPanel != null) lobbyPanel.SetActive(false);
+        StartGame();
         if (aiPlayerPrefab != null)
         {
             var ai = Instantiate(aiPlayerPrefab);
@@ -18,7 +21,7 @@ public class NetworkManagerSetup : MonoBehaviour
         }
         if (ballPrefab != null)
         {
-            var ball = Instantiate(ballPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+            var ball = Instantiate(ballPrefab, new Vector3(-2f, 1f, -8f), Quaternion.identity);
             ball.GetComponent<NetworkObject>().Spawn();
             var pp = FindObjectOfType<PlacementPuzzle>();
             if (pp != null) pp.ball = ball.transform;
@@ -28,6 +31,14 @@ public class NetworkManagerSetup : MonoBehaviour
     public void StartClient()
     {
         NetworkManager.Singleton.StartClient();
+        StartGame();
+    }
+
+    void StartGame()
+    {
         if (lobbyPanel != null) lobbyPanel.SetActive(false);
+        if (chatPanel != null) chatPanel.SetActive(true);
+        if (puzzleStatus != null) puzzleStatus.SetActive(true);
+        if (timerText != null) timerText.SetActive(true);
     }
 }

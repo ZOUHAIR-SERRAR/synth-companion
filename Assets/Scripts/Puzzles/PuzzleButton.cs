@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PuzzleButton : MonoBehaviour
+public class PuzzleButton : MonoBehaviour, IPointerClickHandler
 {
     public int buttonId;
 
-    void OnMouseDown()
+    public void OnPointerClick(PointerEventData eventData)
     {
         SequencePuzzle.Instance.PressButtonServerRpc(buttonId);
     }
