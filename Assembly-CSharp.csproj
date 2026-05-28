@@ -58,6 +58,7 @@
     <Compile Include="Assets\Scripts\Network\NetworkManagerSetup.cs" />
     <Compile Include="Assets\Scripts\Data\SessionLogger.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\Puzzles\BallDragger.cs" />
     <Compile Include="Assets\Scripts\Network\DesktopPlayer.cs" />
     <Compile Include="Assets\Scripts\Network\ChatManager.cs" />
     <Compile Include="Assets\Scripts\Puzzles\PlacementPuzzle.cs" />

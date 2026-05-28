@@ -2,12 +2,14 @@ using Unity.Netcode;
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class ChatManager : NetworkBehaviour
 {
     public static ChatManager Instance;
     public TMP_InputField inputField;
     public TextMeshProUGUI chatDisplay;
+    public ScrollRect scrollRect;
     private List<string> messages = new List<string>();
 
     void Awake() => Instance = this;
@@ -29,8 +31,18 @@ public class ChatManager : NetworkBehaviour
     void BroadcastMessageClientRpc(string msg)
     {
         messages.Add(msg);
-        if (messages.Count > 12) messages.RemoveAt(0);
         chatDisplay.text = string.Join("\n", messages);
+        if (scrollRect != null)
+            UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(
+                scrollRect.content.GetComponent<RectTransform>());
+        StartCoroutine(ScrollToBottom());
+    }
+
+    System.Collections.IEnumerator ScrollToBottom()
+    {
+        yield return new WaitForEndOfFrame();
+        if (scrollRect != null)
+            scrollRect.verticalNormalizedPosition = 0f;
     }
 
     public void DisplayAIMessage(string msg)

@@ -9,6 +9,7 @@ public class NetworkManagerSetup : MonoBehaviour
     public GameObject chatPanel;
     public GameObject puzzleStatus;
     public GameObject timerText;
+    public GameObject sequenceProgressText;
 
     public void StartHost()
     {
@@ -21,8 +22,10 @@ public class NetworkManagerSetup : MonoBehaviour
         }
         if (ballPrefab != null)
         {
+            // La balle spawn à sa position initiale
             var ball = Instantiate(ballPrefab, new Vector3(-2f, 1f, -8f), Quaternion.identity);
             ball.GetComponent<NetworkObject>().Spawn();
+
             var pp = FindObjectOfType<PlacementPuzzle>();
             if (pp != null) pp.ball = ball.transform;
         }
@@ -40,5 +43,6 @@ public class NetworkManagerSetup : MonoBehaviour
         if (chatPanel != null) chatPanel.SetActive(true);
         if (puzzleStatus != null) puzzleStatus.SetActive(true);
         if (timerText != null) timerText.SetActive(true);
+        if (sequenceProgressText != null) sequenceProgressText.SetActive(true);
     }
 }
